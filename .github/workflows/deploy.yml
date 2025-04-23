@@ -33,7 +33,7 @@ jobs:
       run: npm run build
 
     - name: Upload via SFTP
-      uses: appleboy/sftp-action@v0.1.4
+      uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.SFTP_HOST }}
         username: ${{ secrets.SFTP_USER }}
