@@ -1,0 +1,35 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - main   # or your branch name
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # or your node version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build
+
+    - name: Upload via SFTP
+      uses: appleboy/sftp-action@v0.0.10
+      with:
+        host: ${{ secrets.SFTP_HOST }}
+        username: ${{ secrets.SFTP_USER }}
+        password: ${{ secrets.SFTP_PASS }}
+        port: 21
+        source: "build/*"
+        target: "/home/u332075499/domains/henrikbaugerod.no/public_html/test"
