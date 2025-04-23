@@ -33,10 +33,11 @@ jobs:
       run: npm run build
 
     - name: Upload via SFTP
-      uses: appleboy/ssh-action@v1
+      uses: appleboy/sftp-action@v0.1.4
       with:
-          host: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USER }}
-          password: ${{ secrets.SFTP_PASS }}
-          port: 21
-          script: whoami
+        host: ${{ secrets.SFTP_HOST }}
+        username: ${{ secrets.SFTP_USER }}
+        password: ${{ secrets.SFTP_PASS }}
+        port: 21
+        source: "build/*"
+        target: "/home/u332075499/domains/henrikbaugerod.no/public_html/test"
