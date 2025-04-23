@@ -25,11 +25,17 @@ jobs:
       run: npm run build
 
     - name: Upload via SFTP
-      uses: appleboy/sftp-action@v0.0.10
+      uses: milanmk/actions-file-deployer@master
       with:
-        host: ${{ secrets.SFTP_HOST }}
-        username: ${{ secrets.SFTP_USER }}
-        password: ${{ secrets.SFTP_PASS }}
-        port: 21
-        source: "build/*"
-        target: "/home/u332075499/domains/henrikbaugerod.no/public_html/test"
+          remote-protocol: sftp
+
+          # Credentials for SFTP access to server using GitHub secrets
+          remote-host: ${{ secrets.SFTP_HOST }}
+          remote-user: ${{ secrets.SFTP_USER }}
+          remote-password: ${{ secrets.SFTP_PASS }}
+
+          # Path for specific folder on server for files deployment
+          remote-path: /home/u332075499/domains/henrikbaugerod.no/public_html/test/
+
+          # Port for SFTP access to server
+          remote-port: 21
